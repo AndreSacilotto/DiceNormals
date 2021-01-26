@@ -72,10 +72,4 @@ public class Dice : MonoBehaviour
             Gizmos.DrawLine(this.transform.position, this.transform.position + worldSpaceValueVector);
         }
     }
-
-    public void ToJson()
-	{
-        var str = JsonHelper.ToJsonArray(results, true) + ",\n" + JsonHelper.ToJsonArray(points, true);
-        System.IO.File.WriteAllText(Application.dataPath + "/Dice.json", str);
-    }
 }
