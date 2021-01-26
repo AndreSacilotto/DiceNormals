@@ -20,7 +20,39 @@ public class DiceDrawer : Editor
 
     public override void OnInspectorGUI()
     {
-        base.OnInspectorGUI();
+        //base.OnInspectorGUI();
+        EditorGUI.BeginDisabledGroup(true);
+        EditorGUILayout.ObjectField("Script", MonoScript.FromMonoBehaviour(mTarget), typeof(MonoScript), false);
+        EditorGUI.EndDisabledGroup();
+
+        serializedObject.Update();
+        //ObjectNames.NicifyVariableName
+
+        //GET PROPS
+        var directionVector = serializedObject.FindProperty(nameof(mTarget.directionVector));
+
+        var selectedResult = serializedObject.FindProperty(nameof(mTarget.selectedResult));
+        var selectedVector = serializedObject.FindProperty(nameof(mTarget.selectedVector));
+
+        var isPreConfigured = serializedObject.FindProperty(nameof(mTarget.isPreConfigured));
+
+        var results = serializedObject.FindProperty(nameof(mTarget.results));
+        var points = serializedObject.FindProperty(nameof(mTarget.points));
+
+        // CODE
+        EditorGUILayout.PropertyField(directionVector);
+
+        EditorGUI.BeginDisabledGroup(true);
+        EditorGUILayout.PropertyField(selectedResult);
+        EditorGUILayout.PropertyField(selectedVector);
+        EditorGUI.EndDisabledGroup();
+
+        EditorGUILayout.PropertyField(isPreConfigured);
+
+        EditorGUI.BeginDisabledGroup(!mTarget.isPreConfigured);
+        EditorGUILayout.PropertyField(results);
+        EditorGUILayout.PropertyField(points);
+        EditorGUI.EndDisabledGroup();
 
         EditorGUILayout.Space();
         EditorGUILayout.BeginHorizontal();
@@ -43,6 +75,8 @@ public class DiceDrawer : Editor
             }
         }
         EditorGUILayout.EndHorizontal();
+
+        serializedObject.ApplyModifiedProperties();
     }
 
     public void SaveJson(string path)

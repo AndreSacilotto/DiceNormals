@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -19,7 +17,7 @@ public class Dice : MonoBehaviour
     [Space]
     public int[] results;
     public Vector3[] points;
-    // Could use dict, but they don't work in inpector
+    // Could not use dict, it don't serializes
     // These vectors should be normalized. Might be worth adding a task to Start to ensure they are normalized.                                
     // Note: the size of the vectorValues and vectorPoints should be the same.
 
